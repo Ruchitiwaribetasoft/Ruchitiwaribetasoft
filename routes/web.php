@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use Laravel\Socialite\Facades\Socialite;
+use App\Http\Controllers\MailController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,3 +24,21 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('/auth/google/redirect', [AuthController::class, 'googleredirect'])->name('googleredirect');
 Route::get('/auth/google/callback', [AuthController::class, 'googlecallback']);
+
+
+//Email send
+Route::get('/sendemail', [MailController::class, 'sendEmail']);
+
+// Route::get('send-mail', function () {
+
+//     $user = [
+//         'name' => 'Websolutionstuff',
+//         'info' => 'This is mailgun example in laravel 9'
+//     ];
+
+//     \Mail::to('softwaretester491@gmail.com')->send(new \App\Mail\EmailDemo($user));
+
+//     dd("Successfully send mail..!!");
+
+// });
+

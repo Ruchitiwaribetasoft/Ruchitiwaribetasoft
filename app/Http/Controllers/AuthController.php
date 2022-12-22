@@ -19,7 +19,7 @@ class AuthController extends Controller
     {
         try{
             $userdata = Socialite::driver('google')->user();
-            $user= User::where('email',$userdata->email)->first();
+            $user= User::where('user_id',$userdata->id)->first();
             if($user){ 
                Auth::login($user);
                return redirect('/home');
@@ -28,7 +28,8 @@ class AuthController extends Controller
                 $newUser = User::updateOrCreate(['email' => $userdata->email],[
                     'name' => $userdata->name,
                     'password' => Hash::make($uuid.now()),
-                    'auth_type' => 'google'
+                    'auth_type' => 'google',
+                    'user_id' => $userdata->id,
                 ]);
                 Auth::login($newUser);
                 return redirect('/home');
@@ -36,6 +37,5 @@ class AuthController extends Controller
         }catch(Exception $e){
             dd($e->getMessage());
         }
-       
     }
 }
